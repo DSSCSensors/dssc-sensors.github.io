@@ -1,28 +1,179 @@
-<!-- cd dssc-sensors.github.io
 
-echo -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>ImageDataExtractor</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/css/app.css?h=1566982053">
+      <script src="//use.typekit.net/dgk0ueu.js"></script>
+      <script>try{Typekit.load();}catch(e){}</script>
+    </head>
+    <body>
+      <nav class="navbar navbar-default navbar-static-top">
+            <div class="container">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a href="/" class="pull-left">
+                <img class="cde-logo" src="/static/img/ide_logo.png?h=1566997714">
+              </a>
+              <div class="navbar-header">
+                <a class="navbar-brand" href="/">ImageDataExtractor</a>
+              </div>
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/about">About</a></li>
+                  <li><a href="/demo">Online Demo</a></li>
+                  <li><a href="/download">Download</a></li>
+                  <li><a href="/docs">Documentation</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        
+  <section class="section section-invert">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <h3>A tool to extract and quantify data from microscopy images</h3>
+          <a href="/about" class="btn btn-lg btn-invert">Learn more</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-default">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4 text-center">
+          <img class="img-feature" src="/static/img/cde-logo.svg?h=1566997719">
+          <div class="feature-display">Extract relevant images using
+            <a href="http://chemdataextractor.org">
+            ChemDataExtractor</a>.</div>
+        </div>
+        <div class="col-sm-4 text-center">
+          <img class="img-feature" src="/static/img/img_logo.png?h=1566997716">
+          <div class="feature-display">Identify regions corresponding to individual particles.</div>
+        </div>
+        <div class="col-sm-4 text-center">
+          <img class="img-feature" src="/static/img/hist.png?h=1566997718">
+          <div class="feature-display">Extract relevant image metrics including Radial Distribution Functions.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-alternate">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <h2>Try our online demo to see it in action</h2>
+          <a href="/demo" class="btn btn-lg btn-primary">Try it now <i class="glyphicon glyphicon-chevron-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<body style="background-color:powderblue;">
-<h1> 
-  <font size="7" face="arial" color="aqua">
-  <center>  
-    DSSC Sensors 
-    </center>
-    </h1> 
 
-<h2> 
-  <font size="5" face="arial" color="lime">
-  What is a DSSC? </h2>
+        <footer>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6 col-sm-12">
+                  <h2>
+                    <a href="/">ImageDataExtractor</a>
+                  </h2>
+                  <ul>
+                    <li><a href="http://www.mole.phy.cam.ac.uk">Molecular Engineering Group</a></li>
+                    <li><a href="http://www.phy.cam.ac.uk">Cavendish Laboratory</a></li>
+                    <li><a href="http://www.cam.ac.uk">University of Cambridge</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-12">
+                  <h3>About</h3>
+                  <ul>
+                    <li>
+                      <a href="/about">About</a>
+                    </li>
   
-<p1> 
-  <font size="2" face="comic sans" color="red">
-  A Dye-sensitised solar cell(DSSC) is a type of thin film soalr cell. DSSCs work in a different way ot silicon based (p-n jubnction) solar cells.
-    </p1>
-<div class="wrapper">
-  <img class="img-cell" src="img/cell.jpg" alt="dssc cell">
-</div>
-</body>
   
-  <p2>
-    DSSCs create electricity through the photoelectric effect. This begins with the absorption of an incident photon, by the dye, which acts as the photosensitizer of the DSSC. This promotes the photosensitizer from the ground state (~HOMO) to the excited state (~LUMO). Subsequently, the excited dye emits an electron, which is injected into the conduction band (CB) of the semiconductor, usually titanium dioxide (TiO2), leaving the dye oxidized. The electrons are then transported between TiO2 nanoparticles to the anode. From the anode, the electrons flow to the cathode via an external circuit. At the cathode, the electrons enter an electrolyte solution containing a redox couple, e.g. I3-/I-. The cathode is coated in a thin film of a catalyst for the reduction of the redox couple (in this case I3- to I-), which is typically platinum, but can also be carbon based. The iodide moves through the solution to the TiO2 and oxidized dye. The latter is then reduced by the electrons released from the oxidation of I-, which returns to I3-.
-    </p2>
+  
+                    <li>
+                      <a href="/citing">Citing</a>
+                    </li>
+                    <li>
+                      <a href="/download">Download</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-12">
+                  <h3>Try</h3>
+                  <ul>
+                    <li>
+                      <a href="/demo">Online Demo</a>
+                    </li>
+                    <li>
+                      <a href="https://github.com/ktm2/ImageDataExtractor">Source Code</a>
+                    </li>
+                    <li>
+                      <a href="http://chemdataextractor.org/">ChemDataExtractor</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-12">
+                  <h3>Help</h3>
+                  <ul>
+                    <li>
+                      <a href="/contact">Contact</a>
+                    </li>
+                    <li>
+                      <a href="/docs">Documentation</a>
+                    </li>
+  
+  
+  
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </footer>
+        
+          <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+          <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js" integrity="sha256-AdQN98MVZs44Eq2yTwtoKufhnU+uZ7v2kXnD5vqzZVo=" crossorigin="anonymous"></script>
+<script>
+moment.locale("en");
+function flask_moment_render(elem) {
+    $(elem).text(eval('moment("' + $(elem).data('timestamp') + '").' + $(elem).data('format') + ';'));
+    $(elem).removeClass('flask-moment').show();
+}
+function flask_moment_render_all() {
+    $('.flask-moment').each(function() {
+        flask_moment_render(this);
+        if ($(this).data('refresh')) {
+            (function(elem, interval) { setInterval(function() { flask_moment_render(elem) }, interval); })(this, $(this).data('refresh'));
+        }
+    })
+}
+$(document).ready(function() {
+    flask_moment_render_all();
+});
+</script>
+          <script src="/static/js/highlight.js?h=1566982052"></script>
+          <script src="/static/js/main.js?h=1566982051"></script>
+          <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-125911-16', 'auto');
+            ga('send', 'pageview');
+
+          </script>
+    </body>
+</html>
