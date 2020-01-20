@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}ImageDataExtractor{% endblock %}
+
+{% block content %}
+  <section class="section section-invert">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <h3>A tool to extract and quantify data from microscopy images</h3>
+          <a href="{{ url_for('about') }}" class="btn btn-lg btn-invert">Learn more</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-default">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4 text-center">
+          <img class="img-feature" src="{{ url_for('static', filename='img/cde-logo.svg') }}">
+          <div class="feature-display">Extract relevant images using
+            <a href="http://chemdataextractor.org">
+            ChemDataExtractor</a>.</div>
+        </div>
+        <div class="col-sm-4 text-center">
+          <img class="img-feature" src="{{ url_for('static', filename='img/img_logo.png') }}">
+          <div class="feature-display">Identify regions corresponding to individual particles.</div>
+        </div>
+        <div class="col-sm-4 text-center">
+          <img class="img-feature" src="{{ url_for('static', filename='img/hist.png') }}">
+          <div class="feature-display">Extract relevant image metrics including Radial Distribution Functions.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-alternate">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <h2>Try our online demo to see it in action</h2>
+          <a href="{{ url_for('demo') }}" class="btn btn-lg btn-primary">Try it now {{utils.icon('chevron-right')}}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

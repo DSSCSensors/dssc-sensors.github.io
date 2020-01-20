@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Download | ImageDataExtractor{% endblock %}
+
+{% block content %}
+  <div class="container page-container">
+    <h1>Downloads</h1>
+    {{ utils.flashed_messages(messages) }}
+    <div>
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" {% if not registered %}class="active"{% endif %}><a href="#tab-register" role="tab" data-toggle="tab">Register for Updates</a></li>
+        <li role="presentation" {% if registered %}class="active"{% endif %}><a href="#tab-download" role="tab" data-toggle="tab">Download ImageDataExtractor</a></li>
+        <li role="presentation"><a href="#tab-evaluation" role="tab" data-toggle="tab">Download Evaluation Files</a></li>
+      </ul>
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane{% if not registered %} active{% endif %}" id="tab-register">
+          <h2>Register</h2>
+          <p>Registration is optional. If you register, we'll keep in touch with news and updates.</p>
+          <div class="row">
+            <div class="col-sm-6">
+              <form id="register-form" method="post">
+                {{ form.hidden_tag() }}
+                <div class="form-group{% if form.email.errors %} has-error{% endif -%}">
+                  {{ form.email.label(class='control-label') }}
+                  {{ form.email(class='form-control') }}
+                  {% for error in form.email.errors %}
+                    <p class="help-block">{{ error }}</p>
+                  {% endfor %}
+                </div>
+                <div class="form-group{% if form.name.errors %} has-error{% endif -%}">
+                  {{ form.name.label(class='control-label') }}
+                  {{ form.name(class='form-control') }}
+                  {% for error in form.name.errors %}
+                    <p class="help-block">{{ error }}</p>
+                  {% endfor %}
+                </div>
+                <div class="form-group{% if form.affiliation.errors %} has-error{% endif -%}">
+                  {{ form.affiliation.label(class='control-label') }}
+                  {{ form.affiliation(class='form-control') }}
+                  {% for error in form.affiliation.errors %}
+                    <p class="help-block">{{ error }}</p>
+                  {% endfor %}
+                </div>
+                {{ form.submit(class='btn btn-primary') }}
+              </form>
+            </div>
+          </div>
+        </div>
+        <div role="tabpanel" class="tab-pane{% if registered %} active{% endif %}" id="tab-download">
+          <h2>Releases</h2>
+          <p>
+            ImageDataExtractor is available as an open source python package. <a href="/docs/install">Installation using
+            pip is highly recommended</a>.
+          </p>
+          <p>
+            For the latest unstable development version, clone the <a href="https://github.com/ktm2/ImageDataExtractor">source code repository on GitHub</a>.
+          </p>
+          <p>
+            Alternatively, you can download the latest release below. For help with installation and getting started,
+            check out the <a href="/docs">documentation</a>.
+          </p>
+          <div class="downloads">
+            <div class="row download">
+              <div class="col-sm-3 download-meta">
+                <div class="text-muted download-date">28th November 2019</div>
+              </div>
+              <div class="col-sm-9 download-body">
+                <span class="label label-success pull-right">Latest release</span>
+                <h3>ImageDataExtractor 1.0.1</h3>
+                <p>Source code for the ImageDataExtractor toolkit.</p>
+                <a class="btn btn-primary" href="https://github.com/ktm2/ImageDataExtractor/archive/1.0.1.tar.gz">{{ utils.icon('circle-arrow-down') }} Download</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tab-evaluation">
+          <h2 id="evaluation">Evaluation files</h2>
+          <p>ImageDataExtractor performance was evaluated as part of the following publication:</p>
+          <div class="well">
+            K. T. Mukaddem, E. J. Beard, B. Yildirim, J. M. Cole, "ImageDataExtractor: A Tool to Extract and Quantify Data from Microscopy Images", <i>J. Chem. Inf. Model.</i> (<b>2019</b>) <a href="https://doi.org/10.1021/acs.jcim.9b00734">https://doi.org/10.1021/acs.jcim.9b00734</a>
+          </div>
+          <div class="downloads">
+            <div class="row download">
+              <div class="col-sm-3 download-meta">
+                <div class="text-muted download-date">27th August 2019</div>
+              </div>
+              <div class="col-sm-9 download-body">
+                <h3>ImageDataExtractor evaluation corpus</h3>
+                <p>A CSV file containing the Digital Object Indentifier (DOI) and figure number for each file in the corpus used to evaluate the performance of ImageDataExtractor.</p>
+                <a class="btn btn-primary" href="{{ url_for('static', filename='csv/evaluation_set.csv')}}">{{ utils.icon('circle-arrow-down') }} Download</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Error 404 - Page Not Found{% endblock %}
+
+{% block content %}
+  <div class="container page-container">
+    <h1>Error 404 - Not Found</h1>
+    <p>{{ description|safe }}</p>
+  </div>
+{% endblock %}

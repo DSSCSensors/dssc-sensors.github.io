@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Error 400 - Bad Request{% endblock %}
+
+{% block content %}
+  <div class="container page-container">
+    <h1>Error 400 - Bad Request</h1>
+    <p>{{ description|safe }}</p>
+  </div>
+{% endblock %}

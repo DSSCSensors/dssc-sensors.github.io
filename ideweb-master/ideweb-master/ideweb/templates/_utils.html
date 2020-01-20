@@ -1,0 +1,18 @@
+{% macro flashed_messages(messages=None) -%}
+  {% set transform = {'critical': 'danger', 'error': 'danger', 'debug': 'info', 'notset': 'info', 'message': 'info'} %}
+  {% with messages = messages or get_flashed_messages(with_categories=True) -%}
+    {% for cat, msg in messages %}
+      <div class="alert alert-{{transform.get(cat.lower(), cat)}} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{ msg|safe }}
+      </div>
+    {%- endfor -%}
+  {% endwith -%}
+{% endmacro -%}
+
+
+{% macro icon(type=None, extra_classes=[]) -%}
+  <i{{ ({'class': (['glyphicon', 'glyphicon-' + type] + extra_classes)|join(' ')})|xmlattr}}{{kwargs|xmlattr}}></i>
+{%- endmacro %}

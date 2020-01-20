@@ -1,0 +1,511 @@
+{% extends "base.html" %}
+
+{% block title %}Online Demo Results | ImageDataExtractor{% endblock %}
+
+{% macro display_compound(record, index) %}
+  <div id="compound-{{ index }}" class="panel panel-default panel-compound">
+    <div class="panel-body">
+      {% if 'smiles' in record %}
+        <img class="compound-img" src="{{ url_for('depict', smiles=record['smiles']) }}">
+      {% endif %}
+      <div class="compound-meta{% if 'smiles' in record %} has-img{% endif %}">
+        {% if 'names' in record %}
+          <div class="name-container">
+            {% for name in record['names'] %}
+              <div>{{ name }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% if 'labels' in record %}
+          <div class="label-container">
+            {% for label in record['labels'] %}
+              <span class="label label-success">Compound {{ label }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% if 'names' not in record and 'labels' not in record %}
+          <div>Unknown compound</div>
+        {% endif %}
+        {% if 'smiles' in record %}
+          <div class="smiles-container">
+            SMILES: <code class="smiles-display">{{ record['smiles'] }}</code>
+          </div>
+          <div class="btn-group link-container">
+            <a href="{{ url_for('mol', smiles=record['smiles']) }}" class="btn btn-link"><i class="glyphicon glyphicon-save"></i> Download MOL</a>
+            <a href="http://www.chemspider.com/Search.aspx?q={{ record['smiles'] | urlencode }}" class="btn btn-link"><i class="glyphicon glyphicon-search"></i> Search ChemSpider</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    {% if 'nmr_spectra' in record or 'ir_spectra' in record or 'uvvis_spectra' in record or 'melting_points' in record or 'electrochemical_potentials' in record or 'fluorescence_lifetimes' in record or 'quantum_yields' in record %}
+      <ul class="list-group">
+        <li class="list-group-item">
+          <ul class="nav nav-pills nav-properties" role="tablist">
+            {% if 'nmr_spectra' in record %}
+              {% set nmr_len = record['nmr_spectra'] | length %}
+              <li role="presentation"><a href="#nmr-{{ index }}" aria-controls="nmr-{{ index }}" role="tab" data-toggle="pill">{{ nmr_len }} NMR {% if nmr_len > 1 %}Spectra{% else %}Spectrum{% endif %}</a></li>
+            {% endif %}
+            {% if 'ir_spectra' in record %}
+              {% set ir_len = record['ir_spectra'] | length %}
+              <li role="presentation"><a href="#ir-{{ index }}" aria-controls="ir-{{ index }}" role="tab" data-toggle="pill">{{ ir_len }} IR {% if ir_len > 1 %}Spectra{% else %}Spectrum{% endif %}</a></li>
+            {% endif %}
+            {% if 'uvvis_spectra' in record %}
+              {% set uvvis_len = record['uvvis_spectra'] | length %}
+              <li role="presentation"><a href="#uvvis-{{ index }}" aria-controls="uvvis-{{ index }}" role="tab" data-toggle="pill">{{ uvvis_len }} UV-vis {% if uvvis_len > 1 %}Spectra{% else %}Spectrum{% endif %}</a></li>
+            {% endif %}
+            {% if 'melting_points' in record %}
+              {% set mp_len = record['melting_points'] | length %}
+              <li role="presentation"><a href="#mp-{{ index }}" aria-controls="mp-{{ index }}" role="tab" data-toggle="pill">{{ mp_len }} Melting {% if mp_len > 1 %}Points{% else %}Point{% endif %}</a></li>
+            {% endif %}
+            {% if 'fluorescence_lifetimes' in record %}
+              {% set fl_len = record['fluorescence_lifetimes'] | length %}
+              <li role="presentation"><a href="#fl-{{ index }}" aria-controls="fl-{{ index }}" role="tab" data-toggle="pill">{{ fl_len }} Fluorescence {% if fl_len > 1 %}Lifetimes{% else %}Lifetime{% endif %}</a></li>
+            {% endif %}
+            {% if 'electrochemical_potentials' in record %}
+              {% set ep_len = record['electrochemical_potentials'] | length %}
+              <li role="presentation"><a href="#ep-{{ index }}" aria-controls="ep-{{ index }}" role="tab" data-toggle="pill">{{ ep_len }} Electrochemical {% if ep_len > 1 %}Potentials{% else %}Potential{% endif %}</a></li>
+            {% endif %}
+            {% if 'quantum_yields' in record %}
+              {% set qy_len = record['quantum_yields'] | length %}
+              <li role="presentation"><a href="#qy-{{ index }}" aria-controls="qy-{{ index }}" role="tab" data-toggle="pill">{{ qy_len }} Quantum {% if qy_len > 1 %}Yields{% else %}Yield{% endif %}</a></li>
+            {% endif %}
+          </ul>
+          <div class="tab-content">
+            {% if 'nmr_spectra' in record %}
+              <div role="tabpanel" class="tab-pane fade" id="nmr-{{ index }}">
+                {% for nmr in record['nmr_spectra'] %}
+                  {{ display_nmr(nmr) }}
+                {% endfor %}
+              </div>
+            {% endif %}
+            {% if 'ir_spectra' in record %}
+              <div role="tabpanel" class="tab-pane fade" id="ir-{{ index }}">
+                {% for ir in record['ir_spectra'] %}
+                  {{ display_ir(ir) }}
+                {% endfor %}
+              </div>
+            {% endif %}
+            {% if 'uvvis_spectra' in record %}
+              <div role="tabpanel" class="tab-pane fade" id="uvvis-{{ index }}">
+                {% for uvvis in record['uvvis_spectra'] %}
+                  {{ display_uvvis(uvvis) }}
+                {% endfor %}
+              </div>
+            {% endif %}
+            {% if 'melting_points' in record %}
+              <div role="tabpanel" class="tab-pane fade" id="mp-{{ index }}">
+                {% for mp in record['melting_points'] %}
+                  {{ display_mp(mp) }}
+                {% endfor %}
+              </div>
+            {% endif %}
+            {% if 'fluorescence_lifetimes' in record %}
+              <div role="tabpanel" class="tab-pane fade" id="fl-{{ index }}">
+                {% for fl in record['fluorescence_lifetimes'] %}
+                  {{ display_fl(fl) }}
+                {% endfor %}
+              </div>
+            {% endif %}
+            {% if 'electrochemical_potentials' in record %}
+              <div role="tabpanel" class="tab-pane fade" id="ep-{{ index }}">
+                {% for ep in record['electrochemical_potentials'] %}
+                  {{ display_ep(ep) }}
+                {% endfor %}
+              </div>
+            {% endif %}
+            {% if 'quantum_yields' in record %}
+              <div role="tabpanel" class="tab-pane fade" id="qy-{{ index }}">
+                {% for qy in record['quantum_yields'] %}
+                  {{ display_qy(qy) }}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        </li>
+      </ul>
+    {% endif %}
+  </div>
+{% endmacro %}
+
+
+{% macro display_nmr(nmr) %}
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          {% if 'nucleus' in nmr %}
+            <tr>
+              <th class="col-xs-3">Nucleus</th>
+              <td class="col-xs-9">{{ nmr['nucleus'] }}</td>
+            </tr>
+          {% endif %}
+          {% if 'frequency' in nmr %}
+            <tr>
+              <th class="col-xs-3">Frequency</th>
+              <td>{{ nmr['frequency'] }} {% if 'frequency_units' in nmr %}{{ nmr['frequency_units'] }}{% endif %}</td>
+            </tr>
+          {% endif %}
+          {% if 'solvent' in nmr %}
+            <tr>
+              <th class="col-xs-3">Solvent</th>
+              <td class="col-xs-9">{{ nmr['solvent'] }}</td>
+            </tr>
+          {% endif %}
+          {% if 'temperature' in nmr %}
+            <tr>
+              <th class="col-xs-3">Temperature</th>
+              <td class="col-xs-9">{{ nmr['temperature'] }} {% if 'temperature_units' in nmr %}{{ nmr['temperature_units'] }}{% endif %}</td>
+            </tr>
+          {% endif %}
+          {% if 'apparatus' in nmr %}
+            <tr>
+              <th class="col-xs-3">Apparatus</th>
+              <td class="col-xs-9">{{ nmr['apparatus'] }}</td>
+            </tr>
+          {% endif %}
+          {% if 'peaks' in nmr %}
+            <tr>
+              <th class="col-xs-3">Shifts</th>
+              <td class="col-xs-9">
+                {% for peak in nmr['peaks'] -%}
+                    {%- if not loop.first %},{% endif %}
+                    {{ peak['shift'] }}
+                    {%- if 'multiplicity' in peak or 'number' in peak or 'coupling' in peak or 'assignment' in peak %}
+                      (
+                      {% if 'multiplicity' in peak %}{{ peak['multiplicity'] }}{% endif %}
+                      {% if 'number' in peak %}{{ peak['number'] }}{% endif %}
+                      {% if 'coupling' in peak %}{{ peak['coupling'] }}{% if 'coupling_units' in peak %} {{ peak['coupling_units'] }}{% endif %}{% endif -%}
+                      {% if 'assignment' in peak %}{{ peak['assignment'] }}{% endif %}
+                      )
+                    {%- endif %}
+                {%- endfor %}
+              </td>
+            </tr>
+          {% endif %}
+        </table>
+      </div>
+    </div>
+{% endmacro %}
+
+{% macro display_ir(ir) %}
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          {% if 'solvent' in ir %}
+            <tr>
+              <th class="col-xs-3">Solvent</th>
+              <td class="col-xs-9">{{ ir['solvent'] }}</td>
+            </tr>
+          {% endif %}
+          {% if 'temperature' in ir %}
+            <tr>
+              <th class="col-xs-3">Temperature</th>
+              <td class="col-xs-9">{{ ir['temperature'] }} {% if 'temperature_units' in ir %}{{ ir['temperature_units'] }}{% endif %}</td>
+            </tr>
+          {% endif %}
+          {% if 'apparatus' in ir %}
+            <tr>
+              <th class="col-xs-3">Apparatus</th>
+              <td class="col-xs-9">{{ ir['apparatus'] }}</td>
+            </tr>
+          {% endif %}
+          {% if 'peaks' in ir %}
+            <tr>
+              <th class="col-xs-3">Peaks</th>
+              <td class="col-xs-9">
+                {% for peak in ir['peaks'] -%}
+                    {%- if not loop.first %},{% endif %}
+                    {{ peak['value'] }}{% if 'units' in peak %} {{ peak['units'] }}{% endif %}
+                    {%- if 'strength' in peak or 'bond' in peak %}
+                      (
+                      {% if 'strength' in peak %}{{ peak['strength'] }}{% endif %}
+                      {% if 'bond' in peak %}{{ peak['bond'] }}{% endif %}
+                      )
+                    {%- endif %}
+                {%- endfor %}
+              </td>
+            </tr>
+          {% endif %}
+        </table>
+      </div>
+    </div>
+{% endmacro %}
+
+{% macro display_uvvis(uvvis) %}
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          {% if 'solvent' in uvvis %}
+            <tr>
+              <th class="col-xs-3">Solvent</th>
+              <td class="col-xs-9">{{ uvvis['solvent'] }}</td>
+            </tr>
+          {% endif %}
+          {% if 'temperature' in uvvis %}
+            <tr>
+              <th class="col-xs-3">Temperature</th>
+              <td class="col-xs-9">{{ uvvis['temperature'] }} {% if 'temperature_units' in uvvis %}{{ uvvis['temperature_units'] }}{% endif %}</td>
+            </tr>
+          {% endif %}
+          {% if 'apparatus' in uvvis %}
+            <tr>
+              <th class="col-xs-3">Apparatus</th>
+              <td class="col-xs-9">{{ uvvis['apparatus'] }}</td>
+            </tr>
+          {% endif %}
+          {% if 'peaks' in uvvis %}
+            <tr>
+              <th class="col-xs-3">Peaks</th>
+              <td class="col-xs-9">
+                {% for peak in uvvis['peaks'] -%}
+                    {%- if not loop.first %},{% endif %}
+                    {{ peak['value'] }}{% if 'units' in peak %} {{ peak['units'] }}{% endif %}
+                    {%- if 'extinction' in peak or 'shape' in peak %}
+                      (
+                      {% if 'shape' in peak %}{{ peak['shape'] }}{% endif %}
+                      {% if 'extinction' in peak %}{{ peak['extinction'] }}{% if 'extinction_units' in peak %} {{ peak['extinction_units'] }}{% endif %}{% endif %}
+                      )
+                    {%- endif %}
+                {%- endfor %}
+              </td>
+            </tr>
+          {% endif %}
+        </table>
+      </div>
+    </div>
+{% endmacro %}
+
+{% macro display_fl(fl) %}
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          {% if 'value' in fl %}
+            <tr>
+              <th class="col-xs-3">Value</th>
+              <td class="col-xs-9">{{ fl['value'] }}{% if 'units' in fl %} {{ fl['units'] }}{% endif %}</td>
+            </tr>
+          {% endif %}
+          {% if 'solvent' in fl %}
+            <tr>
+              <th class="col-xs-3">Solvent</th>
+              <td class="col-xs-9">{{ fl['solvent'] }}</td>
+            </tr>
+          {% endif %}
+          {% if 'temperature' in fl %}
+            <tr>
+              <th class="col-xs-3">Temperature</th>
+              <td class="col-xs-9">{{ fl['temperature'] }}{% if 'temperature_units' in fl %} {{ fl['temperature_units'] }}{% endif %}</td>
+            </tr>
+          {% endif %}
+          {% if 'apparatus' in fl %}
+            <tr>
+              <th class="col-xs-3">Apparatus</th>
+              <td class="col-xs-9">{{ fl['apparatus'] }}</td>
+            </tr>
+          {% endif %}
+        </table>
+      </div>
+    </div>
+{% endmacro %}
+
+{% macro display_mp(mp) %}
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          {% if 'value' in mp %}
+            <tr>
+              <th class="col-xs-3">Value</th>
+              <td class="col-xs-9">{{ mp['value'] }}{% if 'units' in mp %} {{ mp['units'] }}{% endif %}</td>
+            </tr>
+          {% endif %}
+          {% if 'type' in mp %}
+            <tr>
+              <th class="col-xs-3">Type</th>
+              <td class="col-xs-9">{{ mp['type'] }}</td>
+            </tr>
+          {% endif %}
+          {% if 'solvent' in mp %}
+            <tr>
+              <th class="col-xs-3">Solvent</th>
+              <td class="col-xs-9">{{ mp['solvent'] }}</td>
+            </tr>
+          {% endif %}
+          {% if 'apparatus' in mp %}
+            <tr>
+              <th class="col-xs-3">Apparatus</th>
+              <td class="col-xs-9">{{ mp['apparatus'] }}</td>
+            </tr>
+          {% endif %}
+        </table>
+      </div>
+    </div>
+{% endmacro %}
+
+
+{% macro display_ep(ep) %}
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          {% if 'value' in ep %}
+            <tr>
+              <th class="col-xs-3">Value</th>
+              <td class="col-xs-9">{{ ep['value'] }}{% if 'units' in ep %} {{ ep['units'] }}{% endif %}</td>
+            </tr>
+          {% endif %}
+          {% if 'type' in ep %}
+            <tr>
+              <th class="col-xs-3">Type</th>
+              <td class="col-xs-9">{{ ep['type'] }}</td>
+            </tr>
+          {% endif %}
+          {% if 'solvent' in ep %}
+            <tr>
+              <th class="col-xs-3">Solvent</th>
+              <td class="col-xs-9">{{ ep['solvent'] }}</td>
+            </tr>
+          {% endif %}
+          {% if 'temperature' in ep %}
+            <tr>
+              <th class="col-xs-3">Temperature</th>
+              <td class="col-xs-9">{{ ep['temperature'] }}{% if 'temperature_units' in ep %} {{ ep['temperature_units'] }}{% endif %}</td>
+            </tr>
+          {% endif %}
+          {% if 'apparatus' in ep %}
+            <tr>
+              <th class="col-xs-3">Apparatus</th>
+              <td class="col-xs-9">{{ ep['apparatus'] }}</td>
+            </tr>
+          {% endif %}
+        </table>
+      </div>
+    </div>
+{% endmacro %}
+
+{% macro display_qy(qy) %}
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          {% if 'value' in qy %}
+            <tr>
+              <th class="col-xs-3">Value</th>
+              <td class="col-xs-9">{{ qy['value'] }}</td>
+            </tr>
+          {% endif %}
+          {% if 'solvent' in qy %}
+            <tr>
+              <th class="col-xs-3">Solvent</th>
+              <td class="col-xs-9">{{ qy['solvent'] }}</td>
+            </tr>
+          {% endif %}
+          {% if 'temperature' in qy %}
+            <tr>
+              <th class="col-xs-3">Temperature</th>
+              <td class="col-xs-9">{{ qy['temperature'] }}{% if 'temperature_units' in qy %} {{ qy['temperature_units'] }}{% endif %}</td>
+            </tr>
+          {% endif %}
+          {% if 'apparatus' in qy %}
+            <tr>
+              <th class="col-xs-3">Apparatus</th>
+              <td class="col-xs-9">{{ qy['apparatus'] }}</td>
+            </tr>
+          {% endif %}
+        </table>
+      </div>
+    </div>
+{% endmacro %}
+
+
+{% block content %}
+  <div class="container page-container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="pull-right">
+          <a class="btn btn-link" href="{{ url_for('results', result_id=job.job_id) }}" data-toggle="tooltip" data-placement="bottom" title="Permanent link to this page">{{ utils.icon('link') }} Permalink</a>
+        </div>
+        <h1>Online Demo Results</h1>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        {% if not task.failed() and job.result['path'] %}
+          <div>
+            <div class="download-container">
+              <div class="download-all btn-group">
+                <a href="{{ url_for('send_image', job_id=job.job_id, type='zip') }}" class="download-all btn btn-default">Download</a>
+              </div>
+
+
+            </div>
+            <div class="row">
+              <div class="col-sm-8">
+                <p class="result-text-bold"> Extraction successful!</p>
+              </div>
+            </div>
+                  <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#tab-hist" role="tab" data-toggle="tab">Particle Size Histogram</a></li>
+              <li role="presentation"><a href="#tab-minrdf" role="tab" data-toggle="tab">Minimum RDF</a></li>
+              <li role="presentation"><a href="#tab-scalebar" role="tab" data-toggle="tab">Scalebar Extraction</a></li>
+              <li role="presentation"><a href="#tab-det" role="tab" data-toggle="tab">Particle Detection</a></li>
+              <li role="presentation"><a href="#tab-json" role="tab" data-toggle="tab">Metadata</a></li>
+            </ul>
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane" id="tab-minrdf">
+
+                <img class="img-about" src="{{ url_for('send_image', job_id=job.job_id, type='rdf') }}">
+                <p class="results-text">The Minimum Radial Distribution Function (minRDF) of extracted particles. </p>
+                <p> <i>Please note that the MinRDF resolution used in this demo is lower than in ImageDataExtractor. Download the full version <a href="{{ url_for('download') }}">here</a>. </i></p>
+
+
+              </div>
+              <div role="tabpanel" class="tab-pane active" id="tab-hist">
+                <img class="img-about" src="{{ url_for('send_image', job_id=job.job_id, type='hist') }}">
+                <p class="results-text">A histogram of particle sizes. </p>
+
+              </div>
+              <div role="tabpanel" class="tab-pane" id="tab-scalebar">
+                <img class="img-about" src="{{ url_for('send_image', job_id=job.job_id, type='scalebar') }}">
+                <p class="results-text">Scalebar bounding box and extracted text. </p>
+
+              </div>
+              <div role="tabpanel" class="tab-pane" id="tab-det">
+                <img class="img-about" src="{{ url_for('send_image', job_id=job.job_id, type='det') }}">
+                <p class="results-text">Detected particles with confidence </p>
+
+              </div>
+              <div role="tabpanel" class="tab-pane" id="tab-json">
+                <pre><code>{{ job.result['meta'] | e }}</code></pre>
+              </div>
+            </div>
+          </div>
+        {% elif not task.failed() and job.result is not none%}
+            <h1><b>Extraction Failed...</b></h1>
+            <p>
+                Extraction failed to complete. This is likely because the image is unsuited to this lightweight demo.
+            </p>
+            <p>
+                Please <a href="{{ url_for('download')}}">download</a> the full version and run locally, or try another image.
+            </p>
+        {% elif task.failed() %}
+          <p>Job failed</p>
+          <p>Job ID: {{ job.job_id }}</p>
+          <p>Is your image over 50,000 pixels?</p>
+        {% else %}
+        <p><b>ImageDataExtractor is running!</b> </p>
+        <p> This may take a few minutes...</p>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%"></div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+    var jobId = '{{ job.job_id }}';
+  </script>
+  <script src="{{ url_for('static', filename='js/results.js') }}"></script>
+{%- endblock scripts %}
+

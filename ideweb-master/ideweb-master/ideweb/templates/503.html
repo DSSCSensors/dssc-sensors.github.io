@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Error 503 - Service Unavailable{% endblock %}
+
+{% block content %}
+  <div class="container page-container">
+    <h1>Error 503 - Service Unavailable</h1>
+    <p>{{ description|safe }}</p>
+  </div>
+{% endblock %}
