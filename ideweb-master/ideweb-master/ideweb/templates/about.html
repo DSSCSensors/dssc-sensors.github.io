@@ -9,10 +9,9 @@
     <div>
       <div class="row">
         <div class="col-sm-8">
-          <p class="feature-display">ImageDataExtractor is an open-source python package for automatically extracting quantitative data from microscopy images.</p>
+          <p class="feature-display">The DSSCSensor is a sensor device which measures multiple environmental factors known to affect solar cells performnance along with te performance of cells, in order to comprehensively measure DSSC perfomance characteristics.</p>
 
-          <p class="feature-display">Check out the <a href="/docs">documentation</a> to get started, or look below to see how it works.</p>
-
+   
         </div>
       </div>
 
@@ -25,8 +24,8 @@
       <div class="tab-content">
 
         <div role="tabpanel" class="tab-pane active"  id="tab-img-mining">
-            <h2>Image Mining</h2>
-          <p class="feature-display">Figure captions within scientific documents are first mined with <a href="https://github.com/edbeard/chemdataextractor-ide">ChemDataExtractor</a> using keywords that identify possible microscopy images within them. If the corresponding Figures of the document are of the form of multiple image panels, these panels are then separated into their constituent images.</p>
+            <h2>Dye Sensitised Solar Cells</h2>
+          <p class="feature-display">Dye Sensitised Solar Cells (DSSCs) are a modern type of thin film solar cells, with the potential to be made transparent and flexible, providng opportunities for use in windows and wearables.</p>
               <section class="section section-default">
                 <div class="container">
                   <div class="row">
@@ -35,14 +34,9 @@
             {#          <img class="img-about" src="{{ url_for('static', filename='img/chem.svg') }}">#}
                     </div>
                     <div class="col-sm-8 align-middle">
-                      <h3>Figure Scraping</h3>
+                      <h3>Operating Principles</h3>
                       <p class="feature-display">
-                        ImageDataExtractor uses
-                        <a href="https://github.com/edbeard/chemdataextractor-ide">
-                        ChemDataExtractor
-                        </a>
-                        to automatically detect relevant images from within Figures of a given HTML or XML document.
-                      </p>
+                        DSSCs create electricity through the photoelectric effect. This begins with the absorption of an incident photon, by the dye, which acts as the photosensitizer of the DSSC. This promotes the photosensitizer from the ground state (~HOMO) to the excited state (~LUMO). Subsequently, the excited dye emits an electron, which is injected into the conduction band (CB) of the semiconductor, usually titanium dioxide (TiO2), leaving the dye oxidized. The electrons are then transported between TiO2 nanoparticles to the anode. From the anode, the electrons flow to the cathode via an external circuit. At the cathode, the electrons enter an electrolyte solution containing a redox couple, e.g. I3-/I-. The cathode is coated in a thin film of a catalyst for the reduction of the redox couple (in this case I3- to I-), which is typically platinum, but can also be carbon based. The iodide moves through the solution to the TiO2 and oxidized dye. The latter is then reduced by the electrons released from the oxidation of I-, which returns to I3-.</p>
                     </div>
 
                   </div>
@@ -52,9 +46,9 @@
                 <div class="container">
                   <div class="row">
                     <div class="col-sm-6">
-                      <h3>Figure Splitting</h3>
+                      <h3>Manufacturing process</h3>
                       <p class="feature-display">
-                        Multi-panel images are separated using our two-step algorithm, by splitting on whitespace and integer fractions of the image.
+                        DSSCs consist of an anode and cathode. These are made from conductive glass(in this project fluorine-doped tin oxide(FTO)). To make the anode, the FTO glass is coated in a layer of TiO2 nanoparticle paste, which is then calcinated at 500C. The titania coated anode is the soaked in a dye solution, typically dye dissolved in ethanol, for 24 hours. The cathode is made in the same way, however platinum is calcinated on instead of titania. The cathode and anode are then sealed together in a press heated using a thermoplastic gastket. Finally, the redox electrolyte (typically iodide/triiodide) is ijected into the cavity between the cathode and anode via two holes derilled in the anode.
                       </p>
                     </div>
 
@@ -68,9 +62,9 @@
 
         </div>
         <div role="tabpanel" class="tab-pane{% if registered %} active{% endif %}" id="tab-particle-detection">
-          <h2>Particle Detection</h2>
+          <h2>Sensor Device</h2>
           <p class="feature-display">
-            Particle regions are identified and the scalebar's pixel/value ratio extracted.
+            The sensor device measures all the variables which affect DSSC performance, along with the performance of the DSSCs and wirelessly trnasmits the results to a USB receiver. In particular, light intensity is measured by 3 different sensors ( RGB, IR and UV sensors). Additionally, Humidity, ambient temperature and DSSC ternperature are measured.
           </p>
           <section class="section section-default">
                 <div class="container">
@@ -221,7 +215,7 @@
 
 
         <div role="tabpanel" class="tab-pane" id="tab-calculation-metrics">
-           <h2>Calculate Metrics</h2>
+           <h2>Results</h2>
           <p class="feature-display">Now that the extraction is done, let's look at the results!</p>
           <p class="feature-display">ImageDataExtractor automatically generates useful graphics for easy interpretation.</p>
               <section class="section section-default">
