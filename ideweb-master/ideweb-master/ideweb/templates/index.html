@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}ImageDataExtractor{% endblock %}
+{% block title %}DSSCSensor{% endblock %}
 
 {% block content %}
   <section class="section section-invert">
@@ -18,17 +18,12 @@
       <div class="row">
         <div class="col-sm-4 text-center">
           <img class="img-feature" src="{{ url_for('static', filename='img/cde-logo.svg') }}">
-          <div class="feature-display">Extract relevant images using
-            <a href="http://chemdataextractor.org">
-            ChemDataExtractor</a>.</div>
+          <div class="feature-display">Manufacturing DSSCs.</div>
         </div>
-        <div class="col-sm-4 text-center">
-          <img class="img-feature" src="{{ url_for('static', filename='img/img_logo.png') }}">
-          <div class="feature-display">Identify regions corresponding to individual particles.</div>
-        </div>
+        
         <div class="col-sm-4 text-center">
           <img class="img-feature" src="{{ url_for('static', filename='img/hist.png') }}">
-          <div class="feature-display">Extract relevant image metrics including Radial Distribution Functions.</div>
+          <div class="feature-display">Measuring DSSC performance characteristics.</div>
         </div>
       </div>
     </div>
